@@ -20,9 +20,15 @@ npx expo start
 
 Escaneá el QR con Expo Go.
 
-APK (con notificaciones)
 
-Versión instalable de Android, con las notificaciones funcionando:
+Funcionalidades implementadas
 
-https://expo.dev/accounts/ferraggina/projects/todo-app/builds/61c02588-3c73-4c18-a06d-9fc0bbd9e866
-
+Registro e inicio de sesión local (usuario y contraseña) guardados en AsyncStorage.
+Acceso protegido: sin sesión solo se ven Login y Registro. La sesión se mantiene al cerrar y reabrir la app.
+Crear, listar, marcar como hecha y eliminar tareas. Cada usuario ve solo sus tareas.
+Datos persistentes con AsyncStorage.
+Notificación local programada a los X minutos que se indiquen al crear la tarea (se cancela si la tarea se elimina).
+Navegación con React Navigation (Stack): Login, Registro, Home y Alta de tarea.
+Componentes reutilizables (AppButton, AppInput, TaskItem) con StyleSheet.
+Tests con Jest y React Native Testing Library (componente, validaciones y formateo).
+Botón "Salir" para cerrar sesión.
