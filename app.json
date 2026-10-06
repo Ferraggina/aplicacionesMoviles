@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "todo-app",
+    "name": "Mis Tareas",
     "slug": "todo-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -10,6 +10,7 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.cristian.todoapp",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
@@ -19,6 +20,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c1ac80e0-63f7-4650-ab6e-0cc7be7eafe0"
+      }
     }
   }
 }
