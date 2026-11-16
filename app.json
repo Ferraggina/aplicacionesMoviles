@@ -17,15 +17,18 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "permissions": [
-        "android.permission.RECORD_AUDIO",
-        "android.permission.ACCESS_COARSE_LOCATION",
-        "android.permission.ACCESS_FINE_LOCATION",
-        "android.permission.READ_CONTACTS",
-        "android.permission.WRITE_CONTACTS",
-        "android.permission.READ_CALENDAR",
-        "android.permission.WRITE_CALENDAR"
-      ]
+     "permissions": [
+  "android.permission.RECORD_AUDIO",
+  "android.permission.ACCESS_COARSE_LOCATION",
+  "android.permission.ACCESS_FINE_LOCATION",
+  "android.permission.READ_CONTACTS",
+  "android.permission.WRITE_CONTACTS",
+  "android.permission.READ_CALENDAR",
+  "android.permission.WRITE_CALENDAR",
+  "android.permission.POST_NOTIFICATIONS",
+  "android.permission.SCHEDULE_EXACT_ALARM",
+  "android.permission.USE_EXACT_ALARM"
+]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -55,7 +58,12 @@
         {
           "calendarPermission": "Mis Tareas agrega eventos a tu calendario para tus tareas."
         }
-      ]
+      ],[
+  "expo-notifications",
+  {
+    "defaultChannel": "default"
+  }
+]
     ],
     "extra": {
       "eas": {
