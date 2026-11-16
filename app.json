@@ -21,10 +21,32 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "c1ac80e0-63f7-4650-ab6e-0cc7be7eafe0"
-      }
-    }
+         "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Mis Tareas necesita acceder a tus fotos para adjuntarlas a las tareas.",
+          "cameraPermission": "Mis Tareas necesita la cámara para sacar fotos para tus tareas."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Mis Tareas usa tu ubicación para asociarla a las tareas."
+        }
+      ],
+      [
+        "expo-contacts",
+        {
+          "contactsPermission": "Mis Tareas accede a tus contactos para asignar un responsable a cada tarea."
+        }
+      ],
+      [
+        "expo-calendar",
+        {
+          "calendarPermission": "Mis Tareas agrega eventos a tu calendario para tus tareas."
+        }
+      ]
+    ]
   }
 }

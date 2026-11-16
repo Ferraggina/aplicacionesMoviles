@@ -1,24 +1,57 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { formatReminder } from "../utils/formatters";
+import {
+  View,
+  Text,
+  Image,
+  Linking,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
+import {
+  formatReminder,
+  formatLocation,
+  formatContact,
+  buildMapsUrl,
+} from "../utils/formatters";
 
 export default function TaskItem({ task, onToggle, onDelete }) {
   const reminder = formatReminder(task.reminderAt);
+  const place = formatLocation(task.location);
+  const person = formatContact(task.contact);
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.info}
-        onPress={() => onToggle(task.id)}
-        accessibilityRole="checkbox"
-        accessibilityState={{ checked: task.done }}
-      >
-        <Text style={[styles.title, task.done && styles.done]}>
-          {task.done ? "✓ " : "○ "}
-          {task.title}
-        </Text>
-        {reminder ? <Text style={styles.reminder}>⏰ {reminder}</Text> : null}
-      </TouchableOpacity>
+      {task.photoUri ? (
+        <Image source={{ uri: task.photoUri }} style={styles.thumb} />
+      ) : null}
+
+      <View style={styles.info}>
+        <TouchableOpacity
+          onPress={() => onToggle(task.id)}
+          accessibilityRole="checkbox"
+          accessibilityState={{ checked: task.done }}
+        >
+          <Text style={[styles.title, task.done && styles.done]}>
+            {task.done ? "✓ " : "○ "}
+            {task.title}
+          </Text>
+          {reminder ? <Text style={styles.reminder}>⏰ {reminder}</Text> : null}
+        </TouchableOpacity>
+
+        {place ? (
+          <TouchableOpacity
+            onPress={() => Linking.openURL(buildMapsUrl(task.location))}
+            accessibilityLabel="Ver ubicación en el mapa"
+          >
+            <Text style={styles.extra}>📍 {place}</Text>
+          </TouchableOpacity>
+        ) : null}
+
+        {person ? <Text style={styles.person}>👤 {person}</Text> : null}
+        {task.calendarEventId ? (
+          <Text style={styles.person}>📅 En el calendario</Text>
+        ) : null}
+      </View>
 
       <TouchableOpacity
         onPress={() => onDelete(task.id)}
@@ -42,10 +75,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#e0e0e0",
   },
+  thumb: { width: 56, height: 56, borderRadius: 6, marginRight: 10 },
   info: { flex: 1 },
   title: { fontSize: 16, color: "#222" },
   done: { textDecorationLine: "line-through", color: "#999" },
   reminder: { fontSize: 12, color: "#0066cc", marginTop: 4 },
+  extra: { fontSize: 12, color: "#0066cc", marginTop: 4 },
+  person: { fontSize: 12, color: "#555", marginTop: 4 },
   deleteButton: { paddingHorizontal: 8, paddingVertical: 6 },
   deleteText: { color: "#cc0000", fontWeight: "600" },
 });

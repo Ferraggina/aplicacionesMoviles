@@ -1,4 +1,4 @@
-import React, { useCallback, useLayoutEffect, useState } from "react";
+import React, { useCallback, useLayoutEffect } from "react";
 import {
   View,
   Text,
@@ -10,12 +10,15 @@ import { useFocusEffect } from "@react-navigation/native";
 import AppButton from "../components/AppButton";
 import TaskItem from "../components/TaskItem";
 import { useAuth } from "../context/AuthContext";
-import { getTasks, saveTasks } from "../storage/storage";
-import { cancelReminder } from "../services/notifications";
+import { useTaskStore } from "../store/useTaskStore";
 
 export default function HomeScreen({ navigation }) {
   const { user, logout } = useAuth();
-  const [tasks, setTasks] = useState([]);
+
+  const tasks = useTaskStore((s) => s.tasks);
+  const loadTasks = useTaskStore((s) => s.loadTasks);
+  const toggleTask = useTaskStore((s) => s.toggleTask);
+  const deleteTask = useTaskStore((s) => s.deleteTask);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -31,23 +34,9 @@ export default function HomeScreen({ navigation }) {
 
   useFocusEffect(
     useCallback(() => {
-      getTasks(user).then(setTasks);
-    }, [user]),
+      loadTasks(user);
+    }, [user, loadTasks]),
   );
-
-  const persist = async (updated) => {
-    setTasks(updated);
-    await saveTasks(user, updated);
-  };
-
-  const toggleTask = (id) =>
-    persist(tasks.map((t) => (t.id === id ? { ...t, done: !t.done } : t)));
-
-  const deleteTask = async (id) => {
-    const task = tasks.find((t) => t.id === id);
-    if (task?.notificationId) await cancelReminder(task.notificationId);
-    persist(tasks.filter((t) => t.id !== id));
-  };
 
   return (
     <View style={styles.container}>
@@ -61,7 +50,7 @@ export default function HomeScreen({ navigation }) {
         )}
         ListEmptyComponent={
           <Text style={styles.empty}>
-            No tenés tareas todavía. ¡Agregá la primera!
+            No tenés tareas todavía. Agregá una para comenzar
           </Text>
         }
         contentContainerStyle={styles.list}
