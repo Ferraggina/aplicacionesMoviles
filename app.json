@@ -21,10 +21,14 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "c1ac80e0-63f7-4650-ab6e-0cc7be7eafe0"
-      }
-    }
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Mis Tareas necesita acceder a tus fotos para adjuntarlas a las tareas.",
+          "cameraPermission": "Mis Tareas necesita la cámara para sacar fotos para tus tareas."
+        }
+      ]
+    ]
   }
 }

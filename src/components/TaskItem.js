@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { formatReminder } from "../utils/formatters";
 
 export default function TaskItem({ task, onToggle, onDelete }) {
@@ -7,6 +7,10 @@ export default function TaskItem({ task, onToggle, onDelete }) {
 
   return (
     <View style={styles.container}>
+      {task.photoUri ? (
+        <Image source={{ uri: task.photoUri }} style={styles.thumb} />
+      ) : null}
+
       <TouchableOpacity
         style={styles.info}
         onPress={() => onToggle(task.id)}
@@ -42,6 +46,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#e0e0e0",
   },
+  thumb: { width: 56, height: 56, borderRadius: 6, marginRight: 10 },
   info: { flex: 1 },
   title: { fontSize: 16, color: "#222" },
   done: { textDecorationLine: "line-through", color: "#999" },
