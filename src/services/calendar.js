@@ -48,7 +48,6 @@ export const createTaskEvent = async ({
     const calendar = await findWritableCalendar();
 
     if (!calendar) {
-      // Plan B: abrir el calendario del sistema para que el usuario confirme
       await Calendar.createEventInCalendarAsync(eventData);
       return null;
     }
