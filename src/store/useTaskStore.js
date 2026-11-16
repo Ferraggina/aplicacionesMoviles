@@ -1,15 +1,19 @@
 import { create } from "zustand";
 import { getTasks, saveTasks } from "../storage/storage";
 import { cancelReminder } from "../services/notifications";
+import { deleteTaskEvent } from "../services/calendar";
 
 export const useTaskStore = create((set, get) => ({
-  owner: null, // usuario dueño de las tareas cargadas
+  owner: null,
   tasks: [],
 
-  // Carga las tareas del usuario desde AsyncStorage
   loadTasks: async (username) => {
-    const tasks = await getTasks(username);
-    set({ owner: username, tasks });
+    try {
+      const tasks = await getTasks(username);
+      set({ owner: username, tasks });
+    } catch (e) {
+      console.log("loadTasks falló:", e?.message);
+    }
   },
 
   addTask: async (task) => {
@@ -35,6 +39,7 @@ export const useTaskStore = create((set, get) => ({
     const { owner, tasks } = get();
     const task = tasks.find((t) => t.id === id);
     if (task?.notificationId) await cancelReminder(task.notificationId);
+    if (task?.calendarEventId) await deleteTaskEvent(task.calendarEventId);
     const updated = tasks.filter((t) => t.id !== id);
     set({ tasks: updated });
     await saveTasks(owner, updated);

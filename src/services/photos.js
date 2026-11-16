@@ -1,7 +1,6 @@
 import * as ImagePicker from "expo-image-picker";
 import { handlePermission } from "./permissions";
 
-// Devuelve el URI de la foto, o null si se canceló o no hay permiso
 export const takePhoto = async () => {
   const allowed = await handlePermission(
     ImagePicker.requestCameraPermissionsAsync,

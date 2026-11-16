@@ -1,12 +1,9 @@
 import { Alert, Linking } from "react-native";
 
-// Pide un permiso y, si no lo dan, muestra un mensaje claro.
-// requestFn: la función de la librería que pide el permiso.
 export const handlePermission = async (requestFn, resourceName) => {
   const result = await requestFn();
   if (result.granted) return true;
 
-  // Si ya no se puede volver a preguntar, solo queda ir a Ajustes
   const buttons =
     result.canAskAgain === false
       ? [

@@ -15,13 +15,11 @@ import { useTaskStore } from "../store/useTaskStore";
 export default function HomeScreen({ navigation }) {
   const { user, logout } = useAuth();
 
-  // Leemos del store solo lo que necesitamos (selectores)
   const tasks = useTaskStore((s) => s.tasks);
   const loadTasks = useTaskStore((s) => s.loadTasks);
   const toggleTask = useTaskStore((s) => s.toggleTask);
   const deleteTask = useTaskStore((s) => s.deleteTask);
 
-  // Botón "Salir" siempre visible en el header
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -34,7 +32,6 @@ export default function HomeScreen({ navigation }) {
     });
   }, [navigation, logout]);
 
-  // Recarga las tareas cada vez que Home vuelve a estar en foco
   useFocusEffect(
     useCallback(() => {
       loadTasks(user);

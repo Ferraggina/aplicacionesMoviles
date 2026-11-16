@@ -21,12 +21,30 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
+         "plugins": [
       [
         "expo-image-picker",
         {
           "photosPermission": "Mis Tareas necesita acceder a tus fotos para adjuntarlas a las tareas.",
           "cameraPermission": "Mis Tareas necesita la cámara para sacar fotos para tus tareas."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Mis Tareas usa tu ubicación para asociarla a las tareas."
+        }
+      ],
+      [
+        "expo-contacts",
+        {
+          "contactsPermission": "Mis Tareas accede a tus contactos para asignar un responsable a cada tarea."
+        }
+      ],
+      [
+        "expo-calendar",
+        {
+          "calendarPermission": "Mis Tareas agrega eventos a tu calendario para tus tareas."
         }
       ]
     ]
