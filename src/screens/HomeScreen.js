@@ -56,10 +56,12 @@ export default function HomeScreen({ navigation }) {
         contentContainerStyle={styles.list}
       />
 
-      <AppButton
-        title="Nueva tarea"
-        onPress={() => navigation.navigate("AddTask")}
-      />
+      <View style={styles.newTaskButton}>
+        <AppButton
+          title="Nueva tarea"
+          onPress={() => navigation.navigate("AddTask")}
+        />
+      </View>
     </View>
   );
 }
@@ -69,4 +71,5 @@ const styles = StyleSheet.create({
   greeting: { fontSize: 18, fontWeight: "600", marginBottom: 12 },
   list: { flexGrow: 1 },
   empty: { textAlign: "center", color: "#888", marginTop: 40 },
+  newTaskButton: { marginBottom: 50 },
 });
